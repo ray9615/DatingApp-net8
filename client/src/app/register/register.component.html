@@ -1,32 +1,50 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">註冊</h2>
+<form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
+    <h2 class="text-center text-primary">註冊會員</h2>
     <hr>
-    <div class="form-group">
-        <input type="text" 
-        class="form-control" 
-        name="username" 
-        [(ngModel)]="model.username" 
-        placeholder="Username"  >
-     
+    <div class="mb-3 form-floating">
+        <input 
+        [class.is-invalid]="registerForm.get('password')?.errors
+        && registerForm.get('password')?.touched"
+        type="password"
+        class="form-Control"
+        formControlName = "password"
+        placeholder="密碼">
+        <label>Password</label>
     </div>
+    
+    <app-text-input [formControl]="$any(registerForm.controls['username'])">     
+    </app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])">     
+    </app-text-input>
+    <app-date-input [formControl]='$any(registerForm.controls["dateOfBirth"]' 
+        [label]='"Date Of Birth"' [maxDate]='maxDate'></app-date-input>
+    <app-text-input [formControl]='registerForm.controls["city"]' 
+        [label]='"City"'></app-text-input>
+    <app-text-input [formControl]='registerForm.controls["country"]' 
+        [label]='"Country"'></app-text-input>
+    <app-text-input [formControl]='$any(registerForm.controls["password"])' 
+        [label]='"Password"' 
+        [type]='"password"'>
+    </app-text-input>
+    
+    <app-text-input [formControl]='$any(registerForm.controls["confirmPassword"])' 
+        [label]='"Confirm Password"'
+        [type]='"password"'>
+    </app-text-input>
 
-    <!-- <div class ="mb-3">
-        <label>哪個是你最喜歡的?</label>
-        <select class="form-select">
-             @for (user of usersFromHomeComponet;track $index){
-                <option [value]="user.userName">
-                    {{user.userName}}
-                </option>
-             }
-        </select>
-    </div> -->
+    
+    @if(validationErrors?.length){
+        <div class="alert alert-danger">
+           <ul>
+            @for( error of validationErrors; track $index){
+                <li>{{error}}/li>
+            }
+           </ul>
+        </div>
+    }
 
-    <div class="form-group">
-        <input type="password" class="form-control" name="password" 
-            [(ngModel)]="model.password" placeholder="Password"  >
-    </div>
     <div class="form-group text-center">
-        <button class="btn btn-success mr-2" type="submit">註冊</button>
-        <button class="btn btn-default mr-2" (click)="cancel()" type="button">取消</button>
+        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
+        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
     </div>
 </form>
