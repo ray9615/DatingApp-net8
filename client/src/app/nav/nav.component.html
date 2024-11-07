@@ -1,26 +1,27 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">作業</a>
-        @if(accountService.currentUser()){
-            <ul class="navbar-nav mr-auto">
+        <a class="navbar-brand" routerLink="/" href="#">作業</a>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            @if(accountService.currentUser()){
                 <li class="nav-item">
-                    <a class="nav-link">配對</a>
+                    <a routerLink="/members" routerLinkActive="active" 
+                    class="nav-link active">已配對</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">連結</a>
+                    <a routerLink="/lists" routerLinkActive="active" class="nav-link">連結</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">訊息</a>
-                </li>
-              
-            </ul>
-        }
+                    <a routerLink="/messages" routerLinkActive="active" class="nav-link">訊息</a>
+                </li>                                                                   
+            }
+        </ul>
+        
        
         
         @if(accountService.currentUser()){
             <div class="dropdown" dropdown> <!-- 加入 dropdown 指令 -->
                 <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle> <!-- 加入 dropdownToggle -->
-                    歡迎 {{accountService.currentUser()?.username}}
+                    歡迎 {{accountService.currentUser()?.username | titlecase}}
                 </a>
                 <ul class="dropdown-menu mt-3" *bsDropdownMenu> <!-- 使用 ul 和 li -->
                     <li><a class="dropdown-item">編輯</a></li>
@@ -46,7 +47,7 @@
                     class="form-control me-2" 
                     type="password" 
                     placeholder="Password">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                <button class="btn btn-success" type="submit">Login</button>
             </div>
             
         </form>
