@@ -1,0 +1,32 @@
+<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+    <h2 class="text-center text-primary">註冊</h2>
+    <hr>
+    <div class="form-group">
+        <input type="text" 
+        class="form-control" 
+        name="username" 
+        [(ngModel)]="model.username" 
+        placeholder="Username"  >
+     
+    </div>
+
+    <!-- <div class ="mb-3">
+        <label>哪個是你最喜歡的?</label>
+        <select class="form-select">
+             @for (user of usersFromHomeComponet;track $index){
+                <option [value]="user.userName">
+                    {{user.userName}}
+                </option>
+             }
+        </select>
+    </div> -->
+
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" 
+            [(ngModel)]="model.password" placeholder="Password"  >
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" type="submit">註冊</button>
+        <button class="btn btn-default mr-2" (click)="cancel()" type="button">取消</button>
+    </div>
+</form>
