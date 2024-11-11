@@ -1,1 +1,57 @@
-<h1>{{member?.knownAs}}</h1>
+@if(member){
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                  <img src="{{member.photoUrl || './assets/user.png'}}" 
+                  alt="{{member.knownAs}}"
+                  class="card-img img-thumbnail">
+                  <div class="card-body">
+                    <div>
+                        <strong>地點:</strong>
+                        <p>{{member.city}},{{member.country}}</p>
+                    </div>
+                    <div>
+                        <strong>年紀:</strong>
+                        <p>{{member.age}}</p>
+                    </div>
+                    <div>
+                        <strong>上次登入時間:</strong>
+                        <p>{{member.lastActive}}</p>
+                    </div>
+                    <div>
+                        <strong>會員建立時間:</strong>
+                        <p>{{member.created}}</p>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                      <div class="btn-group d-flex">
+                          <button class="btn btn-primary">配對</button>
+                          <button class="btn btn-success">聊天</button>
+                      </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <tabset class="member-tabs">
+               <tab heading="關於 {{member.knownAs}}">
+                   <h4>描述</h4>
+                   <p>{{member.introdution}}</p>
+                   <h4>尋找的對象</h4>
+                   <p>{{member.lookingFor}}</p>                  
+               </tab>
+               <tab heading="興趣">
+                <h4>我的興趣</h4>
+                <p>{{member.interests}}</p>
+               </tab>
+               <tab heading="照片" #photoTab="tab">
+                @if(photoTab.active){
+                    <gallery [items]="images" class="gallery"></gallery>
+                }               
+               </tab>
+               <tab heading="訊息">
+                <p>查看訊息</p>
+               </tab>
+            </tabset>         
+        </div>
+    </div>
+}

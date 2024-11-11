@@ -5,6 +5,10 @@ namespace API.Entities;
 
 public class AppUser
 {
+  public AppUser()
+    {
+        Photos = new List<Photo>();
+    }
   public int Id { get; set; }
   
   public required string UserName { get; set; }
@@ -29,7 +33,7 @@ public class AppUser
   public string? Interests { get; set; }
   public string? City { get; set; }
   public string? Country { get; set; }
-  public ICollection<Photo> Photos { get; set; }
+  public List<Photo> Photos { get; set; } = new();  // 使用初始化器
 
   // public int GetAge()
   // {

@@ -1,50 +1,71 @@
 <form [formGroup]='registerForm' (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">註冊會員</h2>
     <hr>
-    <div class="mb-3 form-floating">
-        <input 
-        [class.is-invalid]="registerForm.get('password')?.errors
-        && registerForm.get('password')?.touched"
-        type="password"
-        class="form-Control"
-        formControlName = "password"
-        placeholder="密碼">
-        <label>Password</label>
+    
+    <div class="mb-3">
+        <label style="margin-right:10px;">您的性別：</label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="male"
+            formControlName="gender">男性
+        </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="female"
+            formControlName="gender">女性
+        </label>
     </div>
     
-    <app-text-input [formControl]="$any(registerForm.controls['username'])">     
-    </app-text-input>
-    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])">     
-    </app-text-input>
-    <app-date-input [formControl]='any(registerForm.controls["dateOfBirth"]' 
-        [label]='"Date Of Birth"' [maxDate]='maxDate'></app-date-input>
-    <app-text-input [formControl]='registerForm.controls["city"]' 
-        [label]='"City"'></app-text-input>
-    <app-text-input [formControl]='registerForm.controls["country"]' 
-        [label]='"Country"'></app-text-input>
-    <app-text-input [formControl]='$any(registerForm.controls["password"])' 
-        [label]='"Password"' 
-        [type]='"password"'>
-    </app-text-input>
-    
-    <app-text-input [formControl]='$any(registerForm.controls["confirmPassword"])' 
-        [label]='"Confirm Password"'
-        [type]='"password"'>
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['username'])"
+    [label]="'使用者名稱'">
     </app-text-input>
 
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['knownAs'])"
+    [label]="'暱稱'">
+    </app-text-input>
+
+    <app-date-picker
+    [formControl]="$any(registerForm.controls['dateOfBirth'])"
+    [label]="'出生年月日'" [maxDate]="maxDate">
+    </app-date-picker>
+
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['city'])"
+    [label]="'城市'">
+    </app-text-input>
+
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['country'])"
+    [label]="'國家'">
+    </app-text-input>
+
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['password'])"
+    [label]="'密碼'"
+    [type] = "'password'">
+    </app-text-input>
     
-    @if(validationErrors?.length){
-        <div class="alert alert-danger">
-           <ul>
-            @for( error of validationErrors; track $index){
-                <li>{{error}}/li>
+    <app-text-input 
+    [formControl]="$any(registerForm.controls['confirmPassword'])"
+    [label]="'密碼確認'"
+    [type] = "'password'">
+    </app-text-input>
+    
+   @if(validationErrors){
+    <div class="alert alert-danger text-start">
+        <ul>
+            @for(error of validationErrors; track $index){
+                <li>{{error}}</li>
             }
-           </ul>
-        </div>
-    }
-
-    <div class="form-group text-center">
-        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
-        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+        </ul>
     </div>
+   }
+    <div class="form-group text-center">
+        <!-- <button [disabled]='!registerForm.valid' class="btn btn-success me-2" type="submit">Register</button> -->
+        <button class="btn btn-success me-2" type="submit">Register</button>
+        <button class="btn btn-default me-2" (click)="cancel()" type="button">Cancel</button>
+    </div> 
 </form>
+
+<p>表單資料:{{registerForm.value| json}}</p>
+<p>表單狀態:{{registerForm.status| json}}</p>
